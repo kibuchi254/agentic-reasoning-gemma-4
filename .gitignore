@@ -1,0 +1,97 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+ENV/
+.env/
+
+# =========================
+# Jupyter (if used)
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# FastAPI / Uvicorn
+# =========================
+*.log
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# IDEs
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Hugging Face cache (IMPORTANT for your case)
+# =========================
+.cache/
+huggingface/
+~/.cache/huggingface/
+
+# =========================
+# PyTorch / ML heavy files
+# =========================
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# =========================
+# Transformers / model downloads
+# =========================
+models/
+checkpoints/
+*.gguf
+
+# =========================
+# Ollama models (VERY IMPORTANT)
+# =========================
+.ollama/
+~/.ollama/
+
+# =========================
+# Node (if you later add frontend)
+# =========================
+node_modules/
+dist/
+build/
+
+# =========================
+# Logs & temp files
+# =========================
+*.log
+tmp/
+temp/
+
+# =========================
+# Docker (if you add later)
+# =========================
+.docker/
+
+# =========================
+# Local API artifacts
+# =========================
+*.sqlite
+*.db
