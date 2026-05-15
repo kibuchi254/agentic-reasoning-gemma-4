@@ -220,6 +220,24 @@ async def _stream(
     yield "data: [DONE]\n\n"
 
 
+@app.get("/v1/models")
+async def list_models():
+    return JSONResponse(content={
+        "object": "list",
+        "data": [
+            {
+                "id": MODEL,
+                "object": "model",
+                "created": 1677610602,
+                "owned_by": "ollama",
+                "permission": [],
+                "root": MODEL,
+                "parent": None,
+            }
+        ]
+    })
+
+
 @app.post("/v1/chat/completions")
 async def chat_completions(req: ChatRequest):
     if not req.messages or req.messages[-1].role != "user":

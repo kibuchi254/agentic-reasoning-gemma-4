@@ -55,12 +55,15 @@ class AgentRequest(BaseModel):
 
 class ChatRequest(BaseModel):
     model: str = ""
-    messages: list[ChatMessage] | list[dict[str, Any]]
+    messages: list[dict[str, Any]]
     stream: bool = False
     max_tokens: int = Field(2048, ge=1, le=4096)
     temperature: float = Field(0.7, ge=0.0, le=2.0)
     tools: list[Any] | None = None
     tool_choice: Any | None = None
+
+    class Config:
+        extra = "allow"
 
 
 class WorkflowRequest(BaseModel):
