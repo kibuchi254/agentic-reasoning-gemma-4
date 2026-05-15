@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import json
 import logging
+import os
+import subprocess
 import time
 import uuid
 from typing import AsyncGenerator
 
 import tiktoken
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 from openai import AsyncOpenAI, APIError, APITimeoutError
@@ -361,6 +364,25 @@ async def list_tools():
 async def get_history(session_id: str, limit: int = 20):
     history = await get_conversation_history(session_id, limit)
     return JSONResponse(content={"session_id": session_id, "messages": history})
+
+
+security = HTTPBearer()
+
+@app.post("/v1/webhook/deploy")
+async def webhook_deploy(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    secret = os.environ.get("WEBHOOK_SECRET", "supersecret123")
+    if credentials.credentials != secret:
+        raise HTTPException(status_code=401, detail="Invalid webhook secret")
+    
+    # We use Popen to run it detached so the webhook responds immediately 
+    # before supervisor restarts the server and kills the request!
+    try:
+        script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "deploy.sh")
+        subprocess.Popen(["bash", script_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return {"status": "deployment_triggered"}
+    except Exception as e:
+        logger.error("Deployment failed to trigger: %s", e)
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/health")
