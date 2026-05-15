@@ -27,6 +27,6 @@ pip install -r requirements.txt
 # The webhook is actually running *inside* this process, so restarting it 
 # will kill the webhook response but supervisor will bring it right back up!
 echo "Restarting the application via Supervisor..."
-sudo supervisorctl restart gemma-reasoning
+supervisorctl -c supervisord.conf restart gemma-reasoning
 
 echo "Deployment completed successfully!"
