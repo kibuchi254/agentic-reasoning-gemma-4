@@ -240,7 +240,7 @@ async def list_models():
 
 @app.post("/v1/chat/completions")
 async def chat_completions(req: ChatRequest):
-    if not req.messages or req.messages[-1].role != "user":
+    if not req.messages or req.messages[-1].get("role") != "user":
         raise HTTPException(422, detail={
             "error": {
                 "message": "Last message must have role 'user'.",
@@ -250,8 +250,8 @@ async def chat_completions(req: ChatRequest):
         })
 
     cmpl_id = make_completion_id()
-    msgs = [m.model_dump() for m in req.messages]
-    msgs[-1]["content"], prompt_tokens = truncate(msgs[-1]["content"], MAX_PROMPT_TOKENS)
+    msgs = req.messages
+    msgs[-1]["content"], prompt_tokens = truncate(msgs[-1].get("content", ""), MAX_PROMPT_TOKENS)
 
     if req.stream:
         return StreamingResponse(
