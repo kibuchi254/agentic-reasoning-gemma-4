@@ -1,97 +1,38 @@
-# =========================
 # Python
-# =========================
 __pycache__/
-*.py[cod]
+*.pyc
 *.pyo
 *.pyd
-.Python
-env/
-venv/
-.venv/
-ENV/
-.env/
-
-# =========================
-# Jupyter (if used)
-# =========================
-.ipynb_checkpoints/
-
-# =========================
-# FastAPI / Uvicorn
-# =========================
-*.log
-
-# =========================
-# Environment variables
-# =========================
 .env
-.env.*
-!.env.example
+.venv/
 
-# =========================
-# IDEs
-# =========================
+# IDE / editors
 .vscode/
 .idea/
 *.swp
-*.swo
 
-# =========================
-# OS files
-# =========================
+# Cloud / studio environments (your case)
+.lightning_studio/
+.cursor-server/
+.vscode-server/
+.windsurf-server/
+
+# OS junk
 .DS_Store
 Thumbs.db
 
-# =========================
-# Hugging Face cache (IMPORTANT for your case)
-# =========================
+# Logs
+*.log
+
+# HuggingFace / models cache
 .cache/
 huggingface/
-~/.cache/huggingface/
 
-# =========================
-# PyTorch / ML heavy files
-# =========================
-*.pt
-*.pth
-*.bin
-*.safetensors
-
-# =========================
-# Transformers / model downloads
-# =========================
-models/
-checkpoints/
-*.gguf
-
-# =========================
-# Ollama models (VERY IMPORTANT)
-# =========================
+# Ollama / local LLM caches (optional but recommended)
 .ollama/
-~/.ollama/
 
-# =========================
-# Node (if you later add frontend)
-# =========================
-node_modules/
+# Python cache dirs
+__pycache__/
+*.egg-info/
 dist/
 build/
-
-# =========================
-# Logs & temp files
-# =========================
-*.log
-tmp/
-temp/
-
-# =========================
-# Docker (if you add later)
-# =========================
-.docker/
-
-# =========================
-# Local API artifacts
-# =========================
-*.sqlite
-*.db
